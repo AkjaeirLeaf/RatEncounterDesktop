@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using RatEncounterDesktop.IO;
+using RatEncounterDesktop.Render;
+
 using KiraliMauvaModelAdapter.IO;
 
 namespace KiraliMauvaModelAdapter
@@ -19,6 +22,9 @@ namespace KiraliMauvaModelAdapter
             InitializeComponent();
 
             AsciiFBXReader asciiFBX = new AsciiFBXReader("rat.fbx.ascii");
+            asciiFBX.CacheAllModelContents();
+            
+
         }
     }
 }
