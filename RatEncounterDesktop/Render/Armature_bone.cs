@@ -9,6 +9,7 @@ namespace RatEncounterDesktop.Render
     public struct Armature_bone
     {
         public string Name;
+        public int InternalID;
         public Bone_type_ident bone_type;
         public string Parent_Name;
         public string[] Link_Children;

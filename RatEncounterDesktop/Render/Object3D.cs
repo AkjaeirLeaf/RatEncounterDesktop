@@ -22,25 +22,40 @@ namespace RatEncounterDesktop.Render
 
         // new
         private string mesh_id = "";
-        public string Mesh_ID { get { return mesh_id; } }
+        public string Mesh_ID { get { return mesh_id; } } public void Force_MeshID(string ID) { mesh_id = ID; }
+        private int mesh_filesync = -1;
+        public int Mesh_FileSyncID { get { return mesh_filesync; } } public void Force_MeshFileSync(int ID) { mesh_filesync = ID; }
+
 
         private Vector3 rotation = new Vector3();
         public Vector3 Rotation { get { return rotation; } set { rotation = value; } }
+
         private Vector3[] face_normals = new Vector3[0];
         public Vector3[] FACE_NORMALS { get { return face_normals; } }
         private int[] face_ptr = new int[0];
         public int[] FACE_POINTERS { get { return face_ptr; } }
+
+        public void Force_PointCache(Vector3[] pointCache_new) { points_cache = pointCache_new; }
+        public void Force_PointPtr  (int[] point_ptr_new) { point_ptr = point_ptr_new; }
         public int[] PointRef { get { return point_ptr; } }
-        private Vector2[] uv_map = new Vector2[0];
+
+        public void Force_UVMap(Vector2[] new_uv_points) { uv_map = new_uv_points; }
         public Vector2[] UV_MAP { get { return uv_map; } }
+        private Vector2[] uv_map = new Vector2[0];
+        public void Force_UVPointers(int[] new_uv_pointers) { uv_pointer = new_uv_pointers; }
         private int[] uv_pointer = new int[0];
+
+
         public int[] UV_REF { get { return uv_pointer; } }
-        private int[] vpa = new int[0];
+
         public int[] VERTEX_POINTER_ARRAY { get { return vpa; } }
+        private int[] vpa = new int[0];
+
         public Texture2D[] ObjectTextures = new Texture2D[0];
 
-        private Vector3[] point_normals = new Vector3[0];
+        public void Force_PointNormal(Vector3[] point_no_new) { point_normals = point_no_new; }
         public Vector3[] POINT_NORMALS { get { return point_normals; } }
+        private Vector3[] point_normals = new Vector3[0];
 
         public Object3D Clone()
         {
@@ -52,6 +67,7 @@ namespace RatEncounterDesktop.Render
         public PointInfluence[] Point_Armature_Array = new PointInfluence[0];
         public double[] BoneInfluenceRef = new double[0];
 
+        // IO
         public ObjectJson GetExport()
         {
             ObjectJson json = new ObjectJson();
@@ -73,6 +89,34 @@ namespace RatEncounterDesktop.Render
             // do bones:)
 
             return json;
+        }
+
+        public static Vector3[] V3FromDoubleArray(double[] vao)
+        {
+            if(vao.Length % 3 == 0)
+            {
+                Vector3[] v3s = new Vector3[vao.Length / 3];
+                for(int ix = 0; ix < v3s.Length; ix++)
+                {
+                    v3s[ix] = new Vector3(vao[ix * 3 + 0], vao[ix * 3 + 1], vao[ix * 3 + 2]);
+                }
+                return v3s;
+            }
+            return new Vector3[] { Vector3.Zero };
+        }
+
+        public static Vector2[] V2FromDoubleArray(double[] uvA)
+        {
+            if (uvA.Length % 2 == 0)
+            {
+                Vector2[] v2s = new Vector2[uvA.Length / 2];
+                for (int ix = 0; ix < v2s.Length; ix++)
+                {
+                    v2s[ix] = new Vector2(uvA[ix * 2 + 0], uvA[ix * 2 + 1]);
+                }
+                return v2s;
+            }
+            return new Vector2[] { Vector2.Zero };
         }
 
         public static Object3D FromJsonResource(string resourcePath)
@@ -153,6 +197,8 @@ namespace RatEncounterDesktop.Render
                 return obj;
             }
         }
+
+
 
         // RENDER MESH
 

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Content.cs" />
     <Compile Include="GameWindow.cs" />
+    <Compile Include="IO\ArmatureData.cs" />
     <Compile Include="IO\ObjectJson.cs" />
     <Compile Include="IO\PointInfluence.cs" />
     <Compile Include="Items\Item.cs" />
@@ -107,6 +108,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Animation\" />
     <Folder Include="Soulforge\" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +121,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\UI\containter\panel_blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Species\rat\lightfur.png" />
+    <EmbeddedResource Include="Resources\Species\rat\original.png" />
+    <EmbeddedResource Include="Resources\Species\rat\sealpoint.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
